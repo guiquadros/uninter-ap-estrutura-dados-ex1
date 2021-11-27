@@ -50,3 +50,8 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Others
+.vs/
+Ex1LinkedList/Debug/
+Ex1LinkedList/x64/
