@@ -19,7 +19,7 @@ struct SongNode
 	char author[50] = "";
 	int duration = 0;
 	SongNode* next = NULL;
-} *Head; // declara o tipo e o ponteiro para head
+} *Head; // declara o tipo da struct com os dados de cada musica e o ponteiro para head (primeira musica)
 
 int main()
 {
@@ -36,21 +36,29 @@ int main()
 		// limpa a tela apos o usuario selecionar a opcao para destacar a saida
 		system("cls");
 
+		// decide a acao com base na opcao selecionada
 		switch (option)
 		{
+			// insere uma nova musica
 		case 1:
 			insert_new_song();
 			printf("\nMusica inserida com sucesso! Pressione qualquer tecla para voltar ao menu principal.\n\n");
 			system("pause");
 			break;
+
+			// lista todas as musicas da playlist
 		case 2:
 			list_all_songs();
 			printf("\nPressione qualquer tecla para voltar ao menu principal.\n\n");
 			system("pause");
 			break;
+
+			// sai do programa
 		case 3:
 			printf("O programa sera encerrado e os dados serao limpos!\n\n");
 			break;
+
+			// usuario digitou uma opacao invalida
 		default:
 			printf("OPCAO INVALIDA! Pressione uma tecla para reiniciar o menu.\n\n");
 			system("pause");
@@ -83,7 +91,11 @@ void draw_menu()
 int read_int_input()
 {
 	int value;
+
+	// le a opcao como um numero inteiro
 	scanf_s("%d", &value);
+
+	// limpa o buffer do teclado para evitar problemas na leitura do input
 	clear_keyboard_buffer();
 
 	return value;
@@ -155,6 +167,7 @@ void list_all_songs()
 	while (item != NULL)
 	{
 		// imprime dados da musica com um contador representando o numero do cadastro da musica (indice + 1)
+		// ++song_number vai incrementar antes de escrever na tela (diferente de song_number++)
 		printf("#%d\n", ++song_number);
 		printf("Nome: %s", item->song_name);
 		printf("Artista/banda: %s", item->author);
