@@ -1,9 +1,140 @@
+/*
+* AP Estrutura de Dados - Exercicio 1 - Player de Musicas
+* Autor: Guilherme Quadros da Silva (RU = 3282910)
+* Implementacao utilizando Lista Encadeada Simples
+*/
+
 #include<stdio.h>							   
 #include<stdlib.h>
 
+void draw_menu();
+int read_int_input();
+void clear_keyboard_buffer();
+void insert_new_song();
+void list_all_songs();
+
+struct SongNode
+{
+	char song_name[50] = "";
+	char author[50] = "";
+	int duration = 0;
+	SongNode* next = NULL;
+} *Head; // declara o tipo e o ponteiro para head
+
 int main()
 {
-	printf("Hello world!\n");
+	int option = -1;
+
+	do
+	{
+		// desenha o menu
+		draw_menu();
+
+		// le a opcao que o usuario selecionou
+		option = read_int_input();
+
+		// limpa a tela apos o usuario selecionar a opcao para destacar a saida
+		system("cls");
+
+		switch (option)
+		{
+		case 1:
+			insert_new_song();
+			printf("\nMusica inserida com sucesso! Pressione qualquer tecla para voltar ao menu principal.\n\n");
+			system("pause");
+			break;
+		case 2:
+			list_all_songs();
+			break;
+		case 3:
+			printf("O programa sera encerrado e os dados serao limpos!\n\n");
+			break;
+		default:
+			printf("OPCAO INVALIDA! Pressione uma tecla para reiniciar o menu.\n\n");
+			system("pause");
+			break;
+		}
+	} while (option != 3); // o menu e desenhado ate o usuario decidir fechar informando a opcao '3'
+
+	printf("\n");
+
+	// pausa, esperando o usuario pressionar alguma tecla para encerrar o programa 
 	system("pause");
+
 	return 0;
+}
+
+void draw_menu()
+{
+	// limpa a tela
+	system("cls");
+
+	// opcoes do menu
+	printf("MENU:\n");
+	printf("1 - Inserir nova musica na playlist.\n");
+	printf("2 - Lista todas as musicas da playlist.\n");
+	printf("3 - Fechar o programa\n");
+	printf("\n");
+	printf("Selecione uma opcao: ");
+}
+
+int read_int_input()
+{
+	int value;
+	scanf_s("%d", &value);
+	clear_keyboard_buffer();
+
+	return value;
+}
+
+void clear_keyboard_buffer()
+{
+	char c;
+	while ((c = getchar()) != '\n' && c != EOF) {}
+}
+
+void insert_new_song()
+{
+	// aloca espaco para nova musica na memoria
+	SongNode* new_song = (SongNode*)malloc(sizeof(SongNode));
+
+	// nome
+	printf("Informe o nome da musica: ");
+	fgets(new_song->song_name, sizeof(new_song->song_name), stdin);
+
+	// autor
+	printf("Informe o nome do artista/banda: ");
+	fgets(new_song->author, sizeof(new_song->author), stdin);
+
+	// duracao
+	printf("Informe a duracao da faixa (em minutos): ");
+	scanf_s("%d", &new_song->duration);
+
+	// novo item da lista vai sempre para o fim, logo o proximo elemento depois dele vai ser sempre NULL
+	// setar NULL aqui evita setar dentro do if da lista vazia e no final dessa rotina
+	new_song->next = NULL;
+
+	// ponteiro para encontrar final da lista
+	SongNode* item = Head;
+
+	// list vazia
+	if (item == NULL)
+	{
+		Head = new_song;
+		return;
+	}
+
+	// procura pelo último item da lista
+	while (item->next != NULL)
+	{
+		item = item->next;
+	}
+
+	// aponta o atual ultimo item da lista para o item novo (que sera o ultimo)
+	item->next = new_song;
+}
+
+void list_all_songs()
+{
+	printf("\nTODO: list_all_songs()\n");
 }
