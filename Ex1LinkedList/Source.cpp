@@ -73,7 +73,7 @@ void draw_menu()
 
 	// opcoes do menu
 	printf("MENU:\n");
-	printf("1 - Inserir nova musica na playlist.\n");
+	printf("1 - Inserir nova musica no fim da playlist.\n");
 	printf("2 - Lista todas as musicas da playlist.\n");
 	printf("3 - Fechar o programa\n");
 	printf("\n");
