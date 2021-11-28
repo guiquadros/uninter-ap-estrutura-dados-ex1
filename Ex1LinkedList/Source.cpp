@@ -45,6 +45,8 @@ int main()
 			break;
 		case 2:
 			list_all_songs();
+			printf("\nPressione qualquer tecla para voltar ao menu principal.\n\n");
+			system("pause");
 			break;
 		case 3:
 			printf("O programa sera encerrado e os dados serao limpos!\n\n");
@@ -117,7 +119,7 @@ void insert_new_song()
 	// ponteiro para encontrar final da lista
 	SongNode* item = Head;
 
-	// list vazia
+	// lista vazia
 	if (item == NULL)
 	{
 		Head = new_song;
@@ -136,5 +138,29 @@ void insert_new_song()
 
 void list_all_songs()
 {
-	printf("\nTODO: list_all_songs()\n");
+	// lista vazia
+	if (Head == NULL)
+	{
+		printf("Lista de reproducao vazia! Nao ha musica cadastrada. Por favor, retorne ao menu principal para cadastrar uma musica.\n");
+		return;
+	}
+
+	// seta o ponteiro para a primeira musica 
+	SongNode* item = Head;
+
+	// numero da musica (indice + 1)
+	int song_number = 0;
+
+	// percorre todas as musicas da lista
+	while (item != NULL)
+	{
+		// imprime dados da musica com um contador representando o numero do cadastro da musica (indice + 1)
+		printf("#%d\n", ++song_number);
+		printf("Nome: %s", item->song_name);
+		printf("Artista/banda: %s", item->author);
+		printf("Duracao (em minutos): %d\n\n", item->duration);
+
+		// seta o ponteiro para a proxima musica
+		item = item->next;
+	} 
 }
