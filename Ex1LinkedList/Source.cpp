@@ -104,7 +104,11 @@ int read_int_input()
 void clear_keyboard_buffer()
 {
 	char c;
-	while ((c = getchar()) != '\n' && c != EOF) {}
+
+	do
+	{
+		c = getchar();
+	} while (c != '\n' && c != EOF);
 }
 
 void insert_new_song()
